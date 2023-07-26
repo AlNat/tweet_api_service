@@ -23,7 +23,8 @@ public class BackendMockListener {
 
     @KafkaListener(
             groupId = "backend-mock-service",
-            topics = "tweet.save"
+            topics = "tweet.save",
+            concurrency = "1"
     )
     public void process(final Message<String> data) {
         log.debug("received by {} = [{}]", this.getClass().getSimpleName(), data.getPayload());

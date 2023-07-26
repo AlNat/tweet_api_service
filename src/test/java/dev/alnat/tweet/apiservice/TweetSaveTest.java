@@ -8,10 +8,7 @@ import dev.alnat.tweet.apiservice.tools.BackendMockListener;
 import lombok.SneakyThrows;
 import org.apache.kafka.clients.admin.AdminClient;
 import org.apache.kafka.clients.admin.NewTopic;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -62,6 +59,7 @@ class TweetSaveTest {
     @Autowired
     private ObjectMapper objectMapper;
 
+    @BeforeEach
     @AfterEach
     void cleanUp() {
         backend.reset();
@@ -71,7 +69,7 @@ class TweetSaveTest {
     @Test
     @SneakyThrows
     @DisplayName("Send some new tweet with API and verify that it was send with Kafka")
-    void successSendTweet() {
+    void successSendTweetTest() {
         backend.init(1);
 
         var testTweet = TweetDataBuilder.someTweet().build();
@@ -88,7 +86,7 @@ class TweetSaveTest {
     @Test
     @SneakyThrows
     @DisplayName("Send few new tweets with API and verify that it were send with Kafka")
-    void successSendMultipleTweet() {
+    void successSendMultipleTweetTest() {
         backend.init(3);
 
         sendTweetSaveToAPI(TweetDataBuilder.someTweet().build());
